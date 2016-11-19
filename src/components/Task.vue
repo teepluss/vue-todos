@@ -22,6 +22,10 @@
       addTodo () {
         this.$store.dispatch('addTodo', this.task)
         this.task = ''
+        this.$notify({
+          title: 'Todo was added',
+          message: 'The message syncing to the server.'
+        })
       }
     }
   }

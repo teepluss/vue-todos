@@ -24,7 +24,7 @@
   import Task from './Task'
   import Todo from './Todo'
 
-  let increment = 0
+  // let increment = 0
 
   export default {
     name: 'todos',
@@ -52,25 +52,24 @@
     methods: {
       ...mapActions([
         'getTodos',
-        'addTodo',
         'clearTodos'
       ])
     },
     watch: {
-      'todo.todos': {
-        handler (val, old) {
-          if (increment > 0) {
-            this.$notify({
-              title: 'Syncing',
-              message: 'The state was synced to the server.'
-            })
-          } else {
-            this.$message('Fetching...')
-          }
-          increment++
-        },
-        deep: true
-      }
+      // 'todo.todos': {
+      //   handler (val, old) {
+      //     if (increment > 0) {
+      //       this.$notify({
+      //         title: 'Syncing',
+      //         message: 'The state was synced to the server.'
+      //       })
+      //     } else {
+      //       this.$message('Fetching...')
+      //     }
+      //     increment++
+      //   },
+      //   deep: true
+      // }
     }
   }
 </script>
