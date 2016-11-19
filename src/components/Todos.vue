@@ -7,7 +7,9 @@
           <a class="is-active">All</a>
         </p>
         <task></task>
-        <todo v-for="todo in todo.todos" :todo="todo"></todo>
+        <div class="structure">
+          <todo v-for="todo in todo.todos" :todo="todo"></todo>
+        </div>
         <div class="panel-block">
           <button class="button is-primary is-outlined is-fullwidth" @click="clearTodos">
             Clear completed
@@ -22,6 +24,8 @@
   import Task from './Task'
   import Todo from './Todo'
 
+  let increment = 0
+
   export default {
     name: 'todos',
     components: {
@@ -30,6 +34,11 @@
     },
     mounted () {
       this.getTodos()
+
+      // this.$store.subscribe((mutation, state) => {
+      //   console.log(mutation.type)
+      //   console.log(mutation.payload)
+      // })
     },
     computed: {
       ...mapState([
@@ -46,6 +55,22 @@
         'addTodo',
         'clearTodos'
       ])
+    },
+    watch: {
+      'todo.todos': {
+        handler (val, old) {
+          if (increment > 0) {
+            this.$notify({
+              title: 'Syncing',
+              message: 'The state was synced to the server.'
+            })
+          } else {
+            this.$message('Fetching...')
+          }
+          increment++
+        },
+        deep: true
+      }
     }
   }
 </script>

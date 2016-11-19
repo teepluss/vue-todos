@@ -1,21 +1,20 @@
 import * as types from '../../mutation-types'
 
+// console.log(window.localStorage.getItem('vue-todos'))
+
 export default {
   state: {
     todos: []
   },
   mutations: {
     [types.RECEIVE_TODOS] (state) {
-      state.todos = [
-        {
-          id: Math.random(),
-          task: 'Default Task',
-          done: true
-        }
-      ]
+      state.todos = JSON.parse(window.localStorage.getItem('vue-todos') || '[]')
     },
     [types.ADD_TODO] (state, todo) {
       state.todos.push(todo)
+    },
+    [types.EDIT_TODO] (state, { todo, task }) {
+      todo.task = task
     },
     [types.TOGGLE_TODO] (state, todo) {
       todo.done = !todo.done
@@ -24,6 +23,10 @@ export default {
       state.todos = state.todos.filter((todo) => {
         return todo.done === false
       })
+    },
+    [types.DELETE_TODO] (state, todo) {
+      // console.log(todo)
+      state.todos.splice(state.todos.indexOf(todo), 1)
     }
   },
   getters: {
@@ -48,8 +51,17 @@ export default {
         done: false
       })
     },
-    toggleTodo ({ state, commit }, task) {
-      commit(types.TOGGLE_TODO, task)
+    editTodo ({ state, commit }, { todo, task }) {
+      commit(types.EDIT_TODO, {
+        todo: todo,
+        task: task
+      })
+    },
+    deleteTodo ({ state, commit }, todo) {
+      commit(types.DELETE_TODO, todo)
+    },
+    toggleTodo ({ state, commit }, todo) {
+      commit(types.TOGGLE_TODO, todo)
     },
     clearTodos ({ state, commit }) {
       commit(types.CLEAR_TODOS)
