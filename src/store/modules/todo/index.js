@@ -4,11 +4,12 @@ import * as types from '../../mutation-types'
 
 export default {
   state: {
-    todos: []
+    todos: JSON.parse(window.localStorage.getItem('vue-todos') || '[]')
   },
   mutations: {
     [types.RECEIVE_TODOS] (state) {
-      state.todos = JSON.parse(window.localStorage.getItem('vue-todos') || '[]')
+      // This data can be data from the server.
+      // state.todos = []
     },
     [types.ADD_TODO] (state, todo) {
       state.todos.push(todo)
@@ -20,12 +21,12 @@ export default {
       todo.done = !todo.done
     },
     [types.CLEAR_TODOS] (state) {
-      state.todos = state.todos.filter((todo) => {
-        return todo.done === false
-      })
+      // state.todos = state.todos.filter((todo) => {
+      //   return todo.done === false
+      // })
+      state.todos = state.todos.filter(todo => !todo.done)
     },
     [types.DELETE_TODO] (state, todo) {
-      // console.log(todo)
       state.todos.splice(state.todos.indexOf(todo), 1)
     }
   },
