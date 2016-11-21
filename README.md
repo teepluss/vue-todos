@@ -8,10 +8,6 @@ This is lab project for learning about
 # Screenshot
 ![Todo](http://imgur.com/TvWMZzi.png)
 
-# todos.vue
-
-> A Vue.js project
-
 ## Build Setup
 
 ``` bash
