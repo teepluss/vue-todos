@@ -7,7 +7,7 @@ Vue.js with Vuex
 > A Vue.js project
 
 # Screenshot
-![Todo](http://imgur.com/TvWMZzi)
+![Todo](http://imgur.com/TvWMZzi.png)
 
 ## Build Setup
 
