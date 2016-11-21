@@ -1,13 +1,11 @@
 # A simple todo app.
 
 Vue.js with Vuex
+![Todo](http://imgur.com/TvWMZzi.png)
 
 # todos.vue
 
 > A Vue.js project
-
-# Screenshot
-![Todo](http://imgur.com/TvWMZzi.png)
 
 ## Build Setup
 
