@@ -8,7 +8,8 @@
         </p>
         <task></task>
         <div class="structure" v-sortable="{ onUpdate: onUpdate, handle: '.move' }">
-          <todo v-for="todo in todo.todos" :todo="todo" v-on:zoom="show"></todo>
+          <!-- You need to add :key that the same is :track-by="$index" in Vue 1.x -->
+          <todo v-for="todo in todo.todos" :todo="todo" :key="todo.id" v-on:zoom="show"></todo>
         </div>
         <div class="panel-block">
           <button class="button is-primary is-outlined is-fullwidth" @click="clearTodos">

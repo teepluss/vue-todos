@@ -35,13 +35,13 @@
             <i class="fa fa-pencil"></i>
           </span>
         </a>
-        <a class="button is-danger is-outlined is-small" @click="deleting = true" v-if="deleting === false">
+        <a class="button is-danger is-outlined is-small" @click="deleting = true" v-if="!deleting">
           <span>Delete</span>
           <span class="icon is-small">
             <i class="fa fa-times"></i>
           </span>
         </a>
-        <div class="control is-confirm" v-if="deleting === true">
+        <div class="control is-confirm" v-if="deleting">
           <a class="button is-danger is-small" @click="deleteTodo(todo); deleting = false">
             <span>Yes</span>
           </a>
@@ -49,12 +49,6 @@
             <span>No</span>
           </a>
         </div>
-        <!-- <a class="button is-danger is-small" @click="deleteTodo(todo); deleting = false" v-else>
-          <span>Confirm</span>
-          <span class="icon is-small">
-            <i class="fa fa-times"></i>
-          </span>
-        </a> -->
       </p>
     </div>
   </div>
