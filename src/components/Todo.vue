@@ -17,16 +17,16 @@
     </div>
     <div class="level-right">
       <p class="control">
-        <a class="button is-small move">
-          <span>Move</span>
-          <span class="icon is-small">
-            <i class="fa fa-arrows"></i>
-          </span>
-        </a>
-        <a class="button is-small" @click="find(todo)">
+        <a class="button is-dark is-outlined is-small" @click="find(todo)">
           <span>Zoom</span>
           <span class="icon is-small">
             <i class="fa fa-tv"></i>
+          </span>
+        </a>
+        <a class="button is-info is-outlined is-small move">
+          <span>Move</span>
+          <span class="icon is-small">
+            <i class="fa fa-arrows"></i>
           </span>
         </a>
         <a class="button is-primary is-outlined is-small" @click="editing = true">
@@ -35,12 +35,26 @@
             <i class="fa fa-pencil"></i>
           </span>
         </a>
-        <a class="button is-danger is-outlined is-small" @click="deleteTodo(todo)">
+        <a class="button is-danger is-outlined is-small" @click="deleting = true" v-if="deleting === false">
           <span>Delete</span>
           <span class="icon is-small">
             <i class="fa fa-times"></i>
           </span>
         </a>
+        <div class="control is-confirm" v-if="deleting === true">
+          <a class="button is-dark is-small" @click="deleting = false">
+            <span>No</span>
+          </a>
+          <a class="button is-danger is-small" @click="deleteTodo(todo); deleting = false">
+            <span>Yes</span>
+          </a>
+        </div>
+        <!-- <a class="button is-danger is-small" @click="deleteTodo(todo); deleting = false" v-else>
+          <span>Confirm</span>
+          <span class="icon is-small">
+            <i class="fa fa-times"></i>
+          </span>
+        </a> -->
       </p>
     </div>
   </div>
@@ -59,7 +73,8 @@
     },
     data () {
       return {
-        editing: false
+        editing: false,
+        deleting: false
       }
     },
     mounted () {
@@ -97,4 +112,5 @@
 <style scoped>
   .todo { padding: 5px 20px; margin: 0; }
   .completed { text-decoration: line-through }
+  .is-confirm { padding-left: 8px; }
 </style>
