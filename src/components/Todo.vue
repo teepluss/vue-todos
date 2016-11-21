@@ -18,9 +18,9 @@
     <div class="level-right">
       <p class="control">
         <a class="button is-dark is-outlined is-small" @click="find(todo)">
-          <span>Zoom</span>
+          <span>JSON</span>
           <span class="icon is-small">
-            <i class="fa fa-tv"></i>
+            <i class="fa fa-code"></i>
           </span>
         </a>
         <a class="button is-info is-outlined is-small move">

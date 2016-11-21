@@ -17,8 +17,8 @@
         </div>
       </div>
     </div>
-    <el-dialog title="Zoomer" v-model="dialogVisible" size="tiny" v-if="current !== null">
-      <span>{{ current.task }}</span>
+    <el-dialog title="JSON" v-model="dialogVisible" size="tiny" v-if="current !== null">
+      <pre><code>{{ JSON.stringify(current, null, 2) }}</code></pre>
       <span slot="footer" class="dialog-footer">
         <el-button @click.native="dialogVisible = false">Close</el-button>
       </span>
