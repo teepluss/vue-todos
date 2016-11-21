@@ -7,7 +7,7 @@
           <a class="is-active">All</a>
         </p>
         <task></task>
-        <div class="structure">
+        <div class="structure" v-sortable="{ onUpdate: onUpdate, handle: '.move' }">
           <todo v-for="todo in todo.todos" :todo="todo" v-on:zoom="show"></todo>
         </div>
         <div class="panel-block">
@@ -27,6 +27,7 @@
 </template>
 <script>
   import { mapState, mapActions, mapGetters } from 'vuex'
+  import Sortable from 'sortablejs'
   import Task from './Task'
   import Todo from './Todo'
 
@@ -40,11 +41,6 @@
     },
     mounted () {
       this.getTodos()
-
-      // this.$on('on:zoom', () => {
-      //   console.log('aoom')
-      // })
-
       // this.$store.subscribe((mutation, state) => {
       //   console.log(mutation.type)
       //   console.log(mutation.payload)
@@ -70,9 +66,19 @@
         this.current = todo
         this.dialogVisible = true
       },
+      onUpdate (event) {
+        const todos = this.$el.querySelectorAll('.todo')
+        let positions = []
+        todos.forEach((v, i) => {
+          positions.push(v.id)
+        })
+
+        this.$store.dispatch('positionTodo', positions)
+      },
       ...mapActions([
         'getTodos',
-        'clearTodos'
+        'clearTodos',
+        'positionTodo'
       ])
     },
     watch: {
@@ -96,6 +102,19 @@
       //   },
       //   deep: true
       // }
+    },
+    directives: {
+      sortable (el, binding, vnode) {
+        const options = binding.value || {}
+        Sortable.create(el, options)
+      }
     }
   }
 </script>
+<style scoped>
+[draggable="true"] {
+  border-color: #666;
+  border-style: dotted;
+  border-width: 1px;
+}
+</style>

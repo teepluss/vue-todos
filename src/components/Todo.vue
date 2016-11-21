@@ -1,5 +1,5 @@
 <template>
-  <div class="level todo">
+  <div class="level todo" :id="todo.id">
     <div class="level-left">
       <div class="level-item">
         <label v-show="editing == false">
@@ -17,6 +17,12 @@
     </div>
     <div class="level-right">
       <p class="control">
+        <a class="button is-small move">
+          <span>Move</span>
+          <span class="icon is-small">
+            <i class="fa fa-arrows"></i>
+          </span>
+        </a>
         <a class="button is-small" @click="find(todo)">
           <span>Zoom</span>
           <span class="icon is-small">

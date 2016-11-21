@@ -1,6 +1,5 @@
 import * as types from '../../mutation-types'
-
-// console.log(window.localStorage.getItem('vue-todos'))
+import _ from 'lodash'
 
 export default {
   state: {
@@ -10,6 +9,10 @@ export default {
     [types.RECEIVE_TODOS] (state) {
       // This data can be data from the server.
       // state.todos = []
+
+      state.todos = _.sortBy(state.todos, (todo) => {
+        return todo.position
+      })
     },
     [types.FIND_TODO] (state, { todo, cb }) {
       const view = state.todos.find(t => todo === t)
@@ -32,6 +35,9 @@ export default {
     },
     [types.DELETE_TODO] (state, todo) {
       state.todos.splice(state.todos.indexOf(todo), 1)
+    },
+    [types.POSITION_TODO] (state, { todo, index }) {
+      todo.position = index
     }
   },
   getters: {
@@ -61,9 +67,10 @@ export default {
     },
     addTodo ({ state, commit }, task) {
       commit(types.ADD_TODO, {
-        id: Math.random(),
+        id: Math.floor((1 + Math.random()) * 0x10000).toString(16),
         task: task,
-        done: false
+        done: false,
+        position: 999999
       })
     },
     editTodo ({ state, commit }, { todo, task }) {
@@ -77,6 +84,12 @@ export default {
     },
     clearTodos ({ state, commit }) {
       commit(types.CLEAR_TODOS)
+    },
+    positionTodo ({ state, commit }, positions) {
+      positions.forEach((id, index) => {
+        const todo = state.todos.find(t => t.id === id)
+        commit(types.POSITION_TODO, { todo, index })
+      })
     }
   }
 }

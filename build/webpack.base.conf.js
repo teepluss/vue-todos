@@ -2,6 +2,7 @@ var path = require('path')
 var config = require('../config')
 var utils = require('./utils')
 var projectRoot = path.resolve(__dirname, '../')
+var webpack = require('webpack')
 
 var env = process.env.NODE_ENV
 // check env & config/index.js to decide weither to enable CSS Sourcemaps for the
@@ -87,6 +88,12 @@ module.exports = {
   eslint: {
     formatter: require('eslint-friendly-formatter')
   },
+  plugins: [
+    // To get this works, you have to check at .eslintrc.js
+    new webpack.ProvidePlugin({
+      $: 'jquery'
+    })
+  ],
   vue: {
     loaders: utils.cssLoaders({ sourceMap: useCssSourceMap }),
     postcss: [
