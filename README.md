@@ -5,8 +5,7 @@ This is lab project for learning about
 - Vuex
 - LocalStorage
 
-
-> Vue.js with Vuex
+# Screenshot
 ![Todo](http://imgur.com/TvWMZzi.png)
 
 # todos.vue
