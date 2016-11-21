@@ -3,7 +3,9 @@
 This is lab project for learning about
 - Vue
 - Vuex
-- LocalStorage
+- Directive Sortable
+- Vuex Subscribe LocalStorage
+- Call Parent Method with $emit
 
 # Screenshot
 ![Todo](http://imgur.com/TvWMZzi.png)
