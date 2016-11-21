@@ -17,6 +17,12 @@
     </div>
     <div class="level-right">
       <p class="control">
+        <a class="button is-small" @click="find(todo)">
+          <span>Zoom</span>
+          <span class="icon is-small">
+            <i class="fa fa-tv"></i>
+          </span>
+        </a>
         <a class="button is-primary is-outlined is-small" @click="editing = true">
           <span>Edit</span>
           <span class="icon is-small">
@@ -50,14 +56,26 @@
         editing: false
       }
     },
+    mounted () {
+      // console.log(this.todo)
+    },
+    updated () {
+      // console.log(this.editing)
+    },
     methods: {
+      find (todo) {
+        const todoDb = this.$store.dispatch('findTodo', todo)
+        todoDb.then((resp) => {
+          this.$emit('zoom', resp)
+        })
+      },
       doneEdit (e) {
         const task = e.target.value
         const { todo } = this
         if (task === '') {
           this.deleteTodo(todo)
         } else if (this.editing) {
-          this.editTodo({ todo: todo, task: task })
+          this.editTodo({ todo, task })
           this.editing = false
         }
       },
@@ -66,12 +84,6 @@
         'deleteTodo',
         'editTodo'
       ])
-    },
-    mounted () {
-      // console.log(this.todo)
-    },
-    updated () {
-      // console.log(this.editing)
     },
     directives: { focus: focus }
   }

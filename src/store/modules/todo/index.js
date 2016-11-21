@@ -11,6 +11,10 @@ export default {
       // This data can be data from the server.
       // state.todos = []
     },
+    [types.FIND_TODO] (state, { todo, cb }) {
+      const view = state.todos.find(t => todo === t)
+      cb(view)
+    },
     [types.ADD_TODO] (state, todo) {
       state.todos.push(todo)
     },
@@ -45,6 +49,16 @@ export default {
     getTodos ({ state, commit }) {
       commit(types.RECEIVE_TODOS)
     },
+    findTodo ({ state, commit }, todo) {
+      return new Promise((resolve) => {
+        commit(types.FIND_TODO, {
+          todo: todo,
+          cb: (resp) => {
+            resolve(resp)
+          }
+        })
+      })
+    },
     addTodo ({ state, commit }, task) {
       commit(types.ADD_TODO, {
         id: Math.random(),
@@ -53,10 +67,7 @@ export default {
       })
     },
     editTodo ({ state, commit }, { todo, task }) {
-      commit(types.EDIT_TODO, {
-        todo: todo,
-        task: task
-      })
+      commit(types.EDIT_TODO, { todo, task })
     },
     deleteTodo ({ state, commit }, todo) {
       commit(types.DELETE_TODO, todo)

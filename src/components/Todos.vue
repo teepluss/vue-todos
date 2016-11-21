@@ -8,7 +8,7 @@
         </p>
         <task></task>
         <div class="structure">
-          <todo v-for="todo in todo.todos" :todo="todo"></todo>
+          <todo v-for="todo in todo.todos" :todo="todo" v-on:zoom="show"></todo>
         </div>
         <div class="panel-block">
           <button class="button is-primary is-outlined is-fullwidth" @click="clearTodos">
@@ -17,6 +17,12 @@
         </div>
       </div>
     </div>
+    <el-dialog title="Zoomer" v-model="dialogVisible" size="tiny" v-if="current !== null">
+      <span>{{ current.task }}</span>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click.native="dialogVisible = false">Close</el-button>
+      </span>
+    </el-dialog>
   </section>
 </template>
 <script>
@@ -35,10 +41,20 @@
     mounted () {
       this.getTodos()
 
+      // this.$on('on:zoom', () => {
+      //   console.log('aoom')
+      // })
+
       // this.$store.subscribe((mutation, state) => {
       //   console.log(mutation.type)
       //   console.log(mutation.payload)
       // })
+    },
+    data () {
+      return {
+        dialogVisible: false,
+        current: null
+      }
     },
     computed: {
       ...mapState([
@@ -50,12 +66,22 @@
       ])
     },
     methods: {
+      show (todo) {
+        this.current = todo
+        this.dialogVisible = true
+      },
       ...mapActions([
         'getTodos',
         'clearTodos'
       ])
     },
     watch: {
+      // 'todo.zoom': {
+      //   handler (val, old) {
+      //     console.log(val)
+      //     this.dialogVisible = true
+      //   }
+      // },
       // 'todo.todos': {
       //   handler (val, old) {
       //     if (increment > 0) {
