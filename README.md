@@ -8,7 +8,7 @@ This is lab project for learning about
 - Call Parent Method with $emit
 
 # Screenshot
-![Todo](http://imgur.com/TvWMZzi.png)
+![Todo](http://i.imgur.com/s7eK1fN.png)
 
 ## Build Setup
 
