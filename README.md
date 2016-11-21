@@ -1,6 +1,12 @@
 # A simple todo app.
 
-Vue.js with Vuex
+This is lab project for learning about
+- Vue
+- Vuex
+- LocalStorage
+
+
+> Vue.js with Vuex
 ![Todo](http://imgur.com/TvWMZzi.png)
 
 # todos.vue
