@@ -8,7 +8,17 @@ This is lab project for learning about
 - Call Parent Method with $emit
 
 # Screenshot
-![Todo](http://i.imgur.com/s7eK1fN.png)
+![Todo](http://i.imgur.com/j1sA4ku.png)
+
+# Features
+- Add todo
+- Edit todo
+- Move todo
+- View JSON todo
+- Count todo
+- Clear todos
+- Notification on add
+- Delete with confirm
 
 ## Build Setup
 
