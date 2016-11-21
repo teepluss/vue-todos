@@ -42,11 +42,11 @@
           </span>
         </a>
         <div class="control is-confirm" v-if="deleting === true">
-          <a class="button is-dark is-small" @click="deleting = false">
-            <span>No</span>
-          </a>
           <a class="button is-danger is-small" @click="deleteTodo(todo); deleting = false">
             <span>Yes</span>
+          </a>
+          <a class="button is-dark is-small" @click="deleting = false">
+            <span>No</span>
           </a>
         </div>
         <!-- <a class="button is-danger is-small" @click="deleteTodo(todo); deleting = false" v-else>
