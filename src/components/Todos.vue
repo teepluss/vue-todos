@@ -9,7 +9,7 @@
         <task></task>
         <div class="structure" v-sortable="{ onUpdate: onUpdate, handle: '.move' }">
           <!-- You need to add :key that the same is :track-by="$index" in Vue 1.x -->
-          <todo v-for="todo in todo.todos" :todo="todo" :key="todo.id" v-on:zoom="show"></todo>
+          <todo v-for="todo in todo.todos" :todo="todo" :key="todo.id" v-on:hi="sayHi"></todo>
         </div>
         <div class="panel-block">
           <button class="button is-primary is-outlined is-fullwidth" @click="clearTodos">
@@ -18,8 +18,13 @@
         </div>
       </div>
     </div>
-    <el-dialog title="JSON" v-model="dialogVisible" size="tiny" v-if="current !== null">
-      <pre><code>{{ JSON.stringify(current, null, 2) }}</code></pre>
+    <el-dialog
+      title="JSON"
+      v-model="dialogVisible"
+      size="tiny"
+      v-on:close="close"
+      v-if="todo.view !== null">
+      <pre><code>{{ JSON.stringify(todo.view, null, 2) }}</code></pre>
       <span slot="footer" class="dialog-footer">
         <el-button @click.native="dialogVisible = false">Close</el-button>
       </span>
@@ -63,9 +68,12 @@
       ])
     },
     methods: {
-      show (todo) {
-        this.current = todo
-        this.dialogVisible = true
+      // This method is call from child $emit
+      sayHi (message) {
+        console.log(message)
+      },
+      close () {
+        this.$store.dispatch('clearTodoView')
       },
       onUpdate (event) {
         const todos = this.$el.querySelectorAll('.todo')
@@ -83,12 +91,13 @@
       ])
     },
     watch: {
-      // 'todo.zoom': {
-      //   handler (val, old) {
-      //     console.log(val)
-      //     this.dialogVisible = true
-      //   }
-      // },
+      'todo.view': {
+        handler (val, old) {
+          if (val !== null) {
+            this.dialogVisible = true
+          }
+        }
+      }
       // 'todo.todos': {
       //   handler (val, old) {
       //     if (increment > 0) {
@@ -113,9 +122,9 @@
   }
 </script>
 <style scoped>
-[draggable="true"] {
-  border-color: #666;
-  border-style: dotted;
-  border-width: 1px;
-}
+  [draggable="true"] {
+    border-color: #666;
+    border-style: dotted;
+    border-width: 1px;
+  }
 </style>

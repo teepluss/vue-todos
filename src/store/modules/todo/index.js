@@ -3,7 +3,8 @@ import _ from 'lodash'
 
 export default {
   state: {
-    todos: JSON.parse(window.localStorage.getItem('vue-todos') || '[]')
+    todos: JSON.parse(window.localStorage.getItem('vue-todos') || '[]'),
+    view: null
   },
   mutations: {
     [types.RECEIVE_TODOS] (state) {
@@ -14,9 +15,18 @@ export default {
         return todo.position
       })
     },
-    [types.FIND_TODO] (state, { todo, cb }) {
+    // [types.FIND_TODO] (state, { todo, cb }) {
+    //   const view = state.todos.find(t => todo === t)
+    //   cb(view)
+    // },
+    [types.FIND_TODO_VIEW] (state, { todo }) {
+      // const view = state.todos.find(t => todo === t)
+      // cb(view)
       const view = state.todos.find(t => todo === t)
-      cb(view)
+      state.view = view
+    },
+    [types.CLEAR_TODO_VIEW] (state) {
+      state.view = null
     },
     [types.ADD_TODO] (state, todo) {
       state.todos.push(todo)
@@ -55,15 +65,20 @@ export default {
     getTodos ({ state, commit }) {
       commit(types.RECEIVE_TODOS)
     },
-    findTodo ({ state, commit }, todo) {
-      return new Promise((resolve) => {
-        commit(types.FIND_TODO, {
-          todo: todo,
-          cb: (resp) => {
-            resolve(resp)
-          }
-        })
-      })
+    findTodoView ({ state, commit }, todo) {
+      // This code just test async.
+      // return new Promise((resolve) => {
+      //   commit(types.FIND_TODO, {
+      //     todo: todo,
+      //     cb: (resp) => {
+      //       resolve(resp)
+      //     }
+      //   })
+      // })
+      commit(types.FIND_TODO_VIEW, { todo })
+    },
+    clearTodoView ({ state, commit }) {
+      commit(types.CLEAR_TODO_VIEW)
     },
     addTodo ({ state, commit }, task) {
       commit(types.ADD_TODO, {

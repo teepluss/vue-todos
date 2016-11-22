@@ -79,10 +79,13 @@
     },
     methods: {
       find (todo) {
-        const todoDb = this.$store.dispatch('findTodo', todo)
-        todoDb.then((resp) => {
-          this.$emit('zoom', resp)
-        })
+        // This is just testing concept async, but shoudn't code like this.
+        // const todoDb = this.$store.dispatch('findTodo', todo)
+        // todoDb.then((resp) => {
+        //   this.$emit('zoom', resp)
+        // })
+        this.$store.dispatch('findTodoView', todo)
+        this.$emit('hi', 'Say hi from child component')
       },
       doneEdit (e) {
         const task = e.target.value
