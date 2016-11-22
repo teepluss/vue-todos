@@ -1,17 +1,18 @@
 import * as types from '../../mutation-types'
+import * as api from '../../../api'
 import _ from 'lodash'
 
 export default {
   state: {
-    todos: JSON.parse(window.localStorage.getItem('vue-todos') || '[]'),
+    todos: [],
     view: null
   },
   mutations: {
-    [types.RECEIVE_TODOS] (state) {
+    [types.RECEIVE_TODOS] (state, { todos }) {
       // This data can be data from the server.
       // state.todos = []
 
-      state.todos = _.sortBy(state.todos, (todo) => {
+      state.todos = _.sortBy(todos, (todo) => {
         return todo.position
       })
     },
@@ -20,8 +21,6 @@ export default {
     //   cb(view)
     // },
     [types.FIND_TODO_VIEW] (state, { todo }) {
-      // const view = state.todos.find(t => todo === t)
-      // cb(view)
       const view = state.todos.find(t => todo === t)
       state.view = view
     },
@@ -63,7 +62,10 @@ export default {
   },
   actions: {
     getTodos ({ state, commit }) {
-      commit(types.RECEIVE_TODOS)
+      api.todo.fetch()
+        .then(todos => {
+          commit(types.RECEIVE_TODOS, { todos })
+        })
     },
     findTodoView ({ state, commit }, todo) {
       // This code just test async.
